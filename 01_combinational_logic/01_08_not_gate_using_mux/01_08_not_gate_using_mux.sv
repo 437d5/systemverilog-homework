@@ -26,6 +26,9 @@ module not_gate_using_mux
   // Task:
   // Implement not gate using instance(s) of mux,
   // constants 0 and 1, and wire connections
+  wire low = 1'b0;
+  wire high = 1'b1;
 
+  assign o = i ? low : high;
 
 endmodule

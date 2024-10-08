@@ -29,5 +29,27 @@ module mux_4_1
   // Implement mux_4_1 with 4-bit data
   // using two instances of mux_4_1_width_2 with 2-bit data
 
+  // Разделим входной сигнал на 2-ух битные сигналы
+  // low и high -- младшие и старшие части соответсвенно
+  wire [1:0] d0_low = d0[1:0];
+  wire [1:0] d0_high = d0[3:2];
+  
+  wire [1:0] d1_low = d1[1:0];
+  wire [1:0] d1_high = d1[3:2];
+  
+  wire [1:0] d2_low = d2[1:0];
+  wire [1:0] d2_high = d2[3:2];
+  
+  wire [1:0] d3_low = d3[1:0];
+  wire [1:0] d3_high = d3[3:2];
+
+  wire [1:0] y_low, y_high;
+
+  mux_4_1_width_2 mux_low ( .d0(d0_low), .d1(d1_low), 
+                          .d2(d2_low), .d3(d3_low), .sel(sel), .y(y_low)); // младшая часть выхода
+  mux_4_1_width_2 mux_high ( .d0(d0_high), .d1(d1_high),  
+                          .d2(d2_high), .d3(d3_high), .sel(sel), .y(y_high)); // старшая часть выхода
+
+  assign y = { y_high, y_low }; // объединили младшую и старшую части
 
 endmodule
